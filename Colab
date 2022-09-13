@@ -1,0 +1,69 @@
+
+
+**Step 1: Importing the libraries**
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LogisticRegression
+from sklearn import metrics
+
+**Step 2: Importing dataset**
+
+df = pd.read_csv('/content/Data.csv')
+df
+
+**Step 3: Handling the missing data**
+
+df.isnull().sum()
+
+df.shape
+
+df.drop_duplicates()
+
+df.shape
+
+df['Age'] = df.Age.fillna(df.Age.mean())
+
+df['Salary'] = df.Salary.fillna(df.Salary.mean())
+
+df.isnull().sum()
+
+df.dtypes
+
+df['Age'] = df.Age.astype(np.int32)
+
+df['Salary'] = df.Salary.astype(np.int32)
+
+df.dtypes
+
+df
+
+**Step 4: Encoding categorical data**
+
+df.Country.unique()
+
+df.replace({'France':1,'Spain':2,'Germany':3},inplace = True)
+
+df['Purchased'].replace({'Yes':1,'No':0},inplace = True)
+
+df
+
+**Step 5: Splitting the datasets into training sets and Test sets**
+
+df.columns
+
+X = df.loc[:,['Country', 'Age', 'Salary']].values
+Y = df.loc[:,'Purchased']
+X_train,X_test,Y_train,Y_test = train_test_split(X,Y,test_size=0.2)
+
+**Step 7: Feature Scaling**
+
+scaler = StandardScaler()
+scaler.fit(X_train)
+X_train_scaled = scaler.transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
